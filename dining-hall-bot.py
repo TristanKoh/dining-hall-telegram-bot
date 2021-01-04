@@ -2,6 +2,8 @@ import logging
 import os
 from telegram.ext import Updater, CommandHandler
 
+import tokens.token
+
 import requests
 from bs4 import BeautifulSoup
 from packages.menu import formatMenu, formatMenu_Today
@@ -16,7 +18,7 @@ UPDATE_SET = False
 
 # Variables for tele bot to run
 PORT = int(os.environ.get('PORT', '8443'))
-TOKEN = "1412460121:AAEdSGKqXZ6TIDrGjW7IrS9L9Nj20MYjbt4"
+TOKEN = tokens.token.TOKEN
 APP_NAME = "https://dining-hall-bot.herokuapp.com/"
 
 # Dining hall menu link
