@@ -23,8 +23,10 @@ def formatMenu(day) :
     menu = ""
     meals = soup.find("div", {"id" : day_to_tab_dict[day]}).findAll(class_ = "menu-list")
 
-    # If day is not weekend
-    if day != 6 and day != 7 :
+    # If day is not weekend (ie the name of first meal is not brunch)
+    first_meal_name = meals[0].find("h4").text
+    
+    if first_meal_name != "brunch" :
 
         # Loop through breakfast, lunch & dinner
         for index in range(3) :
@@ -32,8 +34,8 @@ def formatMenu(day) :
             menu = menu + "<b>" + meals[index].find("h4").get_text() + "</b>" + "\n"
             
             # Find the stations (ie. salad bar, yakimix etc.) and the dishes (ie. kung pao chicken etc)
-            stations = meals[index].findAll("strong")
-            dishes = meals[index].findAll("td")
+            stations = meals[index].findAll("u")
+            dishes = meals[index].findAll("p")
 
             # Convert to text 
             stations = [station.get_text() for station in stations]
@@ -60,8 +62,8 @@ def formatMenu(day) :
 
             menu = menu + "<b>" + meals[index].find("h4").get_text() + "</b>" + "\n"
             
-            stations = meals[index].findAll("strong")
-            dishes = meals[index].findAll("td")
+            stations = meals[index].findAll("u")
+            dishes = meals[index].findAll("p")
 
             stations = [station.get_text() for station in stations]
             dishes = [dish.get_text() for dish in dishes]
@@ -79,9 +81,9 @@ def formatMenu(day) :
         return menu
 
 
-def formatMenu_Today() :
+def formatMenu_Today(tmr = False) :
     """ 
-    No arguments. Functionally same as the formatMenu function above.
+    Optional argument tmr which returns the next day's menu if enabled. Functionally same as the formatMenu function above.
     Queries the webpage, finds the active DH tab (which indicates that it is today's menu), 
     Pulls the text from that tab and formats it for the bot to reply
     """
@@ -95,19 +97,31 @@ def formatMenu_Today() :
     # Extract fourth char of tab string (ie. tab4 returns 4), since that is the day of week
     day = int(today_tab[3])
 
+    # Control flow to return tomorrow's tab (if selected)
+    if tmr == True and day != 7 :
+        day = day + 1
+    
+    elif tmr == True and day == 7 :
+        day = 1
+    
+    else :
+        pass
+
     day_to_tab_dict = {1 : "tab1", 2 : "tab2", 3 : "tab3", 4 : "tab4", 5 : "tab5", 6 : "tab6", 7 : "tab7"}
 
     menu = ""
     meals = soup.find("div", {"id" : day_to_tab_dict[day]}).findAll(class_ = "menu-list")
 
-    if day != 6 or day != 7 :
+    first_meal_name = meals[0].find("h4").text
+    
+    if first_meal_name != "brunch" :
 
         for index in range(3) :
 
             menu = menu + "<b>" + meals[index].find("h4").get_text() + "</b>" + "\n"
             
-            stations = meals[index].findAll("strong")
-            dishes = meals[index].findAll("td")
+            stations = meals[index].findAll("u")
+            dishes = meals[index].findAll("p")
 
             stations = [station.get_text() for station in stations]
             dishes = [dish.get_text() for dish in dishes]
@@ -130,8 +144,8 @@ def formatMenu_Today() :
 
             menu = menu + "<b>" + meals[index].find("h4").get_text() + "</b>" + "\n"
             
-            stations = meals[index].findAll("strong")
-            dishes = meals[index].findAll("td")
+            stations = meals[index].findAll("u")
+            dishes = meals[index].findAll("p")
 
             stations = [station.get_text() for station in stations]
             dishes = [dish.get_text() for dish in dishes]

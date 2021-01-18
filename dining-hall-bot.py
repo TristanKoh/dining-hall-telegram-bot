@@ -40,8 +40,7 @@ def start(update, context):
     update.message.reply_text(""" 
     Hello! \n
     To display the dining menu, type /[day of week]. For example, /mon displays the Monday menu. \n
-    To schedule the bot to send you the day's menu at 6am every day, use /dailyupdate. \n
-    To unschedule the daily update, use /stopupdate. \n
+    Or you can use /today or /tmr to show today's or tomorrow's menu.
     """)
 
 def help(update, context):
@@ -49,8 +48,7 @@ def help(update, context):
     update.message.reply_text("""
     Hello! \n
     To display the dining menu, type /[day of week]. For example, /mon displays the Monday menu. \n
-    To schedule the bot to send you the day's menu at 6am every day, use /dailyupdate. \n
-    To unschedule the daily update, use /stopupdate. \n
+    Or you can use /today or /tmr to show today's or tomorrow's menu.
     """)
 
 
@@ -87,11 +85,14 @@ def getToday(update, context) :
     """ Gets the menu for the day """    
     update.message.reply_text(formatMenu_Today(), parse_mode = "HTML")
 
+def getTmr(update, context) :
+    """ Gets the menu for the day """    
+    update.message.reply_text(formatMenu_Today(tmr = True), parse_mode = "HTML")
+
 
 # Set scheduler for today's menu at 6am (UTC time is behind SGT by 8 hours)
 def set_schedule(update, context) :
-    schedule.every().day.at("12:11").do(getSun, update, context)
-    # schedule.every().day.at("20:00").do(getToday, update, context)
+    schedule.every().day.at("20:00").do(getToday, update, context)
 
 
 # Auxilliary functions to run scheduler in threaded mode
@@ -152,6 +153,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))
 
     dp.add_handler(CommandHandler("Today", getToday))
+    dp.add_handler(CommandHandler("Tmr", getTmr))
     dp.add_handler(CommandHandler("Mon", getMon))
     dp.add_handler(CommandHandler("Tues", getTues))
     dp.add_handler(CommandHandler("Wed", getWed))
