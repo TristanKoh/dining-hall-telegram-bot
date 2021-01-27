@@ -35,7 +35,7 @@ def formatMenu(day) :
             
             # Find the stations (ie. salad bar, yakimix etc.) and the dishes (ie. kung pao chicken etc)
             stations = meals[index].findAll("u")
-            dishes = meals[index].findAll("p")
+            dishes = meals[index].findAll("td")
 
             # Convert to text 
             stations = [station.get_text() for station in stations]
@@ -63,7 +63,7 @@ def formatMenu(day) :
             menu = menu + "<b>" + meals[index].find("h4").get_text() + "</b>" + "\n"
             
             stations = meals[index].findAll("u")
-            dishes = meals[index].findAll("p")
+            dishes = meals[index].findAll("td")
 
             stations = [station.get_text() for station in stations]
             dishes = [dish.get_text() for dish in dishes]
@@ -121,7 +121,7 @@ def formatMenu_Today(tmr = False) :
             menu = menu + "<b>" + meals[index].find("h4").get_text() + "</b>" + "\n"
             
             stations = meals[index].findAll("u")
-            dishes = meals[index].findAll("p")
+            dishes = meals[index].findAll("td")
 
             stations = [station.get_text() for station in stations]
             dishes = [dish.get_text() for dish in dishes]
@@ -145,7 +145,7 @@ def formatMenu_Today(tmr = False) :
             menu = menu + "<b>" + meals[index].find("h4").get_text() + "</b>" + "\n"
             
             stations = meals[index].findAll("u")
-            dishes = meals[index].findAll("p")
+            dishes = meals[index].findAll("td")
 
             stations = [station.get_text() for station in stations]
             dishes = [dish.get_text() for dish in dishes]
