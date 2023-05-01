@@ -1,0 +1,9 @@
+Minor updates:
+1. Remove the dailyupdate function from the intro message
+2. Tab indices (when the website stops changing)
+3. Add beta testing in the welcome message
+
+Feature updates:
+Simultaneous daily update not working? (remove feature for the timebeing)
+Grab & Go Menu
+5Use buttons to retrieve data
