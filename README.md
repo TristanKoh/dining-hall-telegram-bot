@@ -8,6 +8,8 @@ As a student who had compulsory opt-in to the meal plan, there were days which w
 ## Set up of app
 The Telgram chatbot API was used as the front end for students to input commands by the day of the week. The backend was a python script that scraped the menu from the website on demand. The script was deployed on Heroku.
 
+The main script can be found in __dining-hall-bot.py__, and the helper packages used for formatting and scraping can be found under __/packages__.
+
 ## Results
 For instance, the user could use the command /today, and the bot will automatically pull the menu in telegram the chat window:
 
